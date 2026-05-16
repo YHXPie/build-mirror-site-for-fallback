@@ -15,9 +15,6 @@ dirDebian12="debian/cloud/bookworm"
 dirDebian11="debian/cloud/bullseye"
 dirAlpine="alpine/releases/x86_64"
 dirAlpineCloud="alpine/cloud/x86_64"
-dirRocky10="rockylinux/10/images/x86_64"
-dirRocky9="rockylinux/9/images/x86_64"
-dirRocky8="rockylinux/8/images/x86_64"
 
 urlUbuntu2604="https://cloud-images.ubuntu.com/resolute/current"
 urlUbuntu2404="https://cloud-images.ubuntu.com/noble/current"
@@ -30,9 +27,6 @@ urlDebian12="https://cloud.debian.org/images/cloud/bookworm/latest"
 urlDebian11="https://cloud.debian.org/images/cloud/bullseye/latest"
 urlAlpine="https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64"
 urlAlpineCloud="https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/cloud"
-urlRocky10="https://dl.rockylinux.org/pub/rocky/10/images/x86_64"
-urlRocky9="https://dl.rockylinux.org/pub/rocky/9/images/x86_64"
-urlRocky8="https://dl.rockylinux.org/pub/rocky/8/images/x86_64"
 
 echo -e "${GREEN} >>> 开始在当前目录构建站点结构...${NC}"
 
@@ -49,7 +43,6 @@ mkdir -p "$dirAlpine"
 mkdir -p "$dirAlpineCloud"
 mkdir -p "$dirRocky10"
 mkdir -p "$dirRocky9"
-mkdir -p "$dirRocky8"
 
 # 拉取 Ubuntu 26.04 (Resolute) Cloud Image
 echo -e "${YELLOW} >>> 正在拉取 Ubuntu 26.04 Cloud Image 镜像文件...${NC}"
@@ -100,7 +93,7 @@ wget -c -q --show-progress "${urlUbuntu2404}/noble-server-cloudimg-root.manifest
 
 # 拉取 Ubuntu 24.04 (Jammy) Minimal Cloud Image
 echo -e "${YELLOW} >>> 正在拉取 Ubuntu 24.04 Minimal Cloud Image 镜像文件...${NC}"
-wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.img" -O "${dirUbuntu2404MinMin}/ubuntu-24.04-minimal-cloudimg-amd64.img"
+wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.img" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.img"
 wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.squashfs" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.squashfs"
 wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-root.tar.xz" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-root.tar.xz"
 wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-lxd.tar.xz" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-lxd.tar.xz"
@@ -131,7 +124,7 @@ wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-root.manifest
 
 # 拉取 Ubuntu 22.04 (Jammy) Minimal Cloud Image
 echo -e "${YELLOW} >>> 正在拉取 Ubuntu 22.04 Minimal Cloud Image 镜像文件...${NC}"
-wget -c -q --show-progress "${urlUbuntu2204Min}/ubuntu-22.04-minimal-cloudimg-amd64.img" -O "${dirUbuntu2204MinMin}/ubuntu-22.04-minimal-cloudimg-amd64.img"
+wget -c -q --show-progress "${urlUbuntu2204Min}/ubuntu-22.04-minimal-cloudimg-amd64.img" -O "${dirUbuntu2204Min}/ubuntu-22.04-minimal-cloudimg-amd64.img"
 wget -c -q --show-progress "${urlUbuntu2204Min}/ubuntu-22.04-minimal-cloudimg-amd64.squashfs" -O "${dirUbuntu2204Min}/ubuntu-22.04-minimal-cloudimg-amd64.squashfs"
 wget -c -q --show-progress "${urlUbuntu2204Min}/ubuntu-22.04-minimal-cloudimg-amd64-root.tar.xz" -O "${dirUbuntu2204Min}/ubuntu-22.04-minimal-cloudimg-amd64-root.tar.xz"
 wget -c -q --show-progress "${urlUbuntu2204Min}/ubuntu-22.04-minimal-cloudimg-amd64-lxd.tar.xz" -O "${dirUbuntu2204Min}/ubuntu-22.04-minimal-cloudimg-amd64-lxd.tar.xz"
@@ -224,36 +217,6 @@ wget -c -q --show-progress "${urlAlpine}/{$LatestAlpine_Standard}.sha512" -O "${
 wget -c -q --show-progress "${urlAlpine}/{$LatestAlpine_Virt}.asc" -O "${dirAlpine}/alpine-virt-latest_stable-x86_64.iso.asc"
 wget -c -q --show-progress "${urlAlpine}/{$LatestAlpine_Virt}.sha256" -O "${dirAlpine}/alpine-virt-latest_stable-x86_64.iso.sha256"
 wget -c -q --show-progress "${urlAlpine}/{$LatestAlpine_Virt}.sha512" -O "${dirAlpine}/alpine-virt-latest_stable-x86_64.iso.sha512"
-
-# 拉取 Rocky Linux 10
-echo -e "${YELLOW} >>> 正在拉取 Rocky Linux 10 Cloud Image 镜像文件...${NC}"
-wget -c -q --show-progress "${urlRocky10}/Rocky-10-GenericCloud-Base.latest.x86_64.qcow2" -O "${dirRocky10}/Rocky-10-GenericCloud-Base.latest.x86_64.qcow2"
-wget -c -q --show-progress "${urlRocky10}/Rocky-10-GenericCloud-LVM.latest.x86_64.qcow2" -O "${dirRocky10}/Rocky-10-GenericCloud-Base.LVM.x86_64.qcow2"
-echo -e "${YELLOW} >>> 正在拉取 Rocky Linux 10 Cloud Image 校验文件及其它元数据...${NC}"
-wget -c -q --show-progress "${urlRocky10}/Rocky-10-GenericCloud-Base.latest.x86_64.qcow2.CHECKSUM" -O "${dirRocky10}/Rocky-10-GenericCloud-Base.latest.x86_64.qcow2.CHECKSUM"
-wget -c -q --show-progress "${urlRocky10}/Rocky-10-GenericCloud-LVM.latest.x86_64.qcow2.CHECKSUM" -O "${dirRocky10}/Rocky-10-GenericCloud-Base.LVM.x86_64.qcow2.CHECKSUM"
-wget -c -q --show-progress "${urlRocky10}/CHECKSUM" -O "${dirRocky10}/CHECKSUM"
-wget -c -q --show-progress "${urlRocky10}/CHECKSUM.asc" -O "${dirRocky10}/CHECKSUM.asc"
-
-# 拉取 Rocky Linux 9
-echo -e "${YELLOW} >>> 正在拉取 Rocky Linux 9 Cloud Image 镜像文件...${NC}"
-wget -c -q --show-progress "${urlRocky9}/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2" -O "${dirRocky9}/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
-wget -c -q --show-progress "${urlRocky9}/Rocky-9-GenericCloud-LVM.latest.x86_64.qcow2" -O "${dirRocky9}/Rocky-9-GenericCloud-Base.LVM.x86_64.qcow2"
-echo -e "${YELLOW} >>> 正在拉取 Rocky Linux 9 Cloud Image 校验文件及其它元数据...${NC}"
-wget -c -q --show-progress "${urlRocky9}/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2.CHECKSUM" -O "${dirRocky9}/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2.CHECKSUM"
-wget -c -q --show-progress "${urlRocky9}/Rocky-9-GenericCloud-LVM.latest.x86_64.qcow2.CHECKSUM" -O "${dirRocky9}/Rocky-9-GenericCloud-Base.LVM.x86_64.qcow2.CHECKSUM"
-wget -c -q --show-progress "${urlRocky9}/CHECKSUM" -O "${dirRocky9}/CHECKSUM"
-wget -c -q --show-progress "${urlRocky9}/CHECKSUM.asc" -O "${dirRocky9}/CHECKSUM.asc"
-
-# 拉取 Rocky Linux 8
-echo -e "${YELLOW} >>> 正在拉取 Rocky Linux 8 Cloud Image 镜像文件...${NC}"
-wget -c -q --show-progress "${urlRocky8}/Rocky-8-GenericCloud-Base.latest.x86_64.qcow2" -O "${dirRocky8}/Rocky-8-GenericCloud-Base.latest.x86_64.qcow2"
-wget -c -q --show-progress "${urlRocky8}/Rocky-8-GenericCloud-LVM.latest.x86_64.qcow2" -O "${dirRocky8}/Rocky-8-GenericCloud-Base.LVM.x86_64.qcow2"
-echo -e "${YELLOW} >>> 正在拉取 Rocky Linux 8 Cloud Image 校验文件及其它元数据...${NC}"
-wget -c -q --show-progress "${urlRocky8}/Rocky-8-GenericCloud-Base.latest.x86_64.qcow2.CHECKSUM" -O "${dirRocky8}/Rocky-8-GenericCloud-Base.latest.x86_64.qcow2.CHECKSUM"
-wget -c -q --show-progress "${urlRocky8}/Rocky-8-GenericCloud-LVM.latest.x86_64.qcow2.CHECKSUM" -O "${dirRocky8}/Rocky-8-GenericCloud-Base.LVM.x86_64.qcow2.CHECKSUM"
-wget -c -q --show-progress "${urlRocky8}/CHECKSUM" -O "${dirRocky8}/CHECKSUM"
-wget -c -q --show-progress "${urlRocky8}/CHECKSUM.asc" -O "${dirRocky8}/CHECKSUM.asc"
 
 # 生成 Apache2 站点伪装头尾文件
 echo -e "${YELLOW} >>> 正在生成 HEADER.html 和 README.html...${NC}"
