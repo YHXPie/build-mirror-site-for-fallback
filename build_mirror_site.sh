@@ -6,7 +6,10 @@ NC='\033[0m'
 
 dirUbuntu2604="ubuntu/cloud/resolute"
 dirUbuntu2404="ubuntu/cloud/noble"
-dirUbuntu2204="ubuntu/cloud/jammy"
+dirUbuntu2604="ubuntu/cloud/jammy"
+dirUbuntu2604Min="ubuntu/cloud/minimal/resolute"
+dirUbuntu2404Min="ubuntu/cloud/minimal/noble"
+dirUbuntu2604Min="ubuntu/cloud/minimal/jammy"
 dirDebian13="debian/cloud/trixie"
 dirDebian12="debian/cloud/bookworm"
 dirDebian11="debian/cloud/bullseye"
@@ -18,7 +21,10 @@ dirRocky8="rockylinux/8/images/x86_64"
 
 urlUbuntu2604="https://cloud-images.ubuntu.com/resolute/current"
 urlUbuntu2404="https://cloud-images.ubuntu.com/noble/current"
-urlUbuntu2204="https://cloud-images.ubuntu.com/jammy/current"
+urlUbuntu2604="https://cloud-images.ubuntu.com/jammy/current"
+urlUbuntu2604Min="https://cloud-images.ubuntu.com/minimal/releases/resolute/release"
+urlUbuntu2404Min="https://cloud-images.ubuntu.com/minimal/releases/noble/release"
+urlUbuntu2604Min="https://cloud-images.ubuntu.com/minimal/releases/jammy/release"
 urlDebian13="https://cloud.debian.org/images/cloud/trixie/latest"
 urlDebian12="https://cloud.debian.org/images/cloud/bookworm/latest"
 urlDebian11="https://cloud.debian.org/images/cloud/bullseye/latest"
@@ -32,7 +38,10 @@ echo -e "${GREEN} >>> 开始在当前目录构建站点结构...${NC}"
 
 mkdir -p "$dirUbuntu2604"
 mkdir -p "$dirUbuntu2404"
-mkdir -p "$dirUbuntu2204"
+mkdir -p "$dirUbuntu2604"
+mkdir -p "$dirUbuntu2604Min"
+mkdir -p "$dirUbuntu2404Min"
+mkdir -p "$dirUbuntu2604Min"
 mkdir -p "$dirDebian13"
 mkdir -p "$dirDebian12"
 mkdir -p "$dirDebian11"
@@ -57,7 +66,21 @@ wget -c -q --show-progress "${urlUbuntu2604}/MD5SUMS" -O "${dirUbuntu2604}/MD5SU
 wget -c -q --show-progress "${urlUbuntu2604}/MD5SUMS.gpg" -O "${dirUbuntu2604}/MD5SUMS.gpg"
 wget -c -q --show-progress "${urlUbuntu2604}/resolute-server-cloudimg-amd64.manifest" -O "${dirUbuntu2604}/resolute-server-cloudimg-amd64.manifest"
 wget -c -q --show-progress "${urlUbuntu2604}/resolute-server-cloudimg-root.manifest" -O "${dirUbuntu2604}/resolute-server-cloudimg-root.manifest"
-wget -c -q --show-progress "${urlUbuntu2604}/resolute-server-cloudimg-amd64.release.*.image_changelog.json" -O "${dirUbuntu2604}/resolute-server-cloudimg-amd64.image_changelog.json"
+
+# 拉取 Ubuntu 26.04 (Jammy) Minimal Cloud Image
+echo -e "${YELLOW} >>> 正在拉取 Ubuntu 26.04 Minimal Cloud Image 镜像文件...${NC}"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.img" -O "${dirUbuntu2604MinMin}/ubuntu-26.04-minimal-cloudimg-amd64.img"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.squashfs" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.squashfs"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-root.tar.xz" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-root.tar.xz"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-lxd.tar.xz" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-lxd.tar.xz"
+echo -e "${YELLOW} >>> 正在拉取 Ubuntu 26.04 Image 校验文件及其它元数据...${NC}"
+wget -c -q --show-progress "${urlUbuntu2604Min}/SHA256SUMS" -O "${dirUbuntu2604Min}/SHA256SUMS"
+wget -c -q --show-progress "${urlUbuntu2604Min}/SHA256SUMS.gpg" -O "${dirUbuntu2604Min}/SHA256SUMS.gpg"
+wget -c -q --show-progress "${urlUbuntu2604Min}/MD5SUMS" -O "${dirUbuntu2604Min}/MD5SUMS"
+wget -c -q --show-progress "${urlUbuntu2604Min}/MD5SUMS.gpg" -O "${dirUbuntu2604Min}/MD5SUMS.gpg"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.manifest" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.manifest"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-root.manifest" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-root.manifest"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.squashfs.manifest" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.squashfs.manifest"
 
 # 拉取 Ubuntu 24.04 (Noble) Cloud Image
 echo -e "${YELLOW} >>> 正在拉取 Ubuntu 24.04 Cloud Image 镜像文件...${NC}"
@@ -74,24 +97,52 @@ wget -c -q --show-progress "${urlUbuntu2404}/MD5SUMS" -O "${dirUbuntu2404}/MD5SU
 wget -c -q --show-progress "${urlUbuntu2404}/MD5SUMS.gpg" -O "${dirUbuntu2404}/MD5SUMS.gpg"
 wget -c -q --show-progress "${urlUbuntu2404}/noble-server-cloudimg-amd64.manifest" -O "${dirUbuntu2404}/noble-server-cloudimg-amd64.manifest"
 wget -c -q --show-progress "${urlUbuntu2404}/noble-server-cloudimg-root.manifest" -O "${dirUbuntu2404}/noble-server-cloudimg-root.manifest"
-wget -c -q --show-progress "${urlUbuntu2404}/noble-server-cloudimg-amd64.release.*.image_changelog.json" -O "${dirUbuntu2404}/noble-server-cloudimg-amd64.image_changelog.json"
 
-# 拉取 Ubuntu 22.04 (Jammy) Cloud Image
-echo -e "${YELLOW} >>> 正在拉取 Ubuntu 22.04 Cloud Image 镜像文件...${NC}"
-wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-amd64.img" -O "${dirUbuntu2204}/jammy-server-cloudimg-amd64.img"
-wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-amd64.ova" -O "${dirUbuntu2204}/jammy-server-cloudimg-amd64.ova"
-wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-amd64.vmdk" -O "${dirUbuntu2204}/jammy-server-cloudimg-amd64.vmdk"
-wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-amd64.tar.xz" -O "${dirUbuntu2204}/jammy-server-cloudimg-amd64.tar.xz"
-wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-amd64-root.tar.xz" -O "${dirUbuntu2204}/jammy-server-cloudimg-amd64-root.tar.xz"
-wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-amd64-lxd.tar.xz" -O "${dirUbuntu2204}/jammy-server-cloudimg-amd64-lxd.tar.xz"
-echo -e "${YELLOW} >>> 正在拉取 Ubuntu 22.04 Image 校验文件及其它元数据...${NC}"
-wget -c -q --show-progress "${urlUbuntu2204}/SHA256SUMS" -O "${dirUbuntu2204}/SHA256SUMS"
-wget -c -q --show-progress "${urlUbuntu2204}/SHA256SUMS.gpg" -O "${dirUbuntu2204}/SHA256SUMS.gpg"
-wget -c -q --show-progress "${urlUbuntu2204}/MD5SUMS" -O "${dirUbuntu2204}/MD5SUMS"
-wget -c -q --show-progress "${urlUbuntu2204}/MD5SUMS.gpg" -O "${dirUbuntu2204}/MD5SUMS.gpg"
-wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-amd64.manifest" -O "${dirUbuntu2204}/jammy-server-cloudimg-amd64.manifest"
-wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-root.manifest" -O "${dirUbuntu2204}/jammy-server-cloudimg-root.manifest"
-wget -c -q --show-progress "${urlUbuntu2204}/jammy-server-cloudimg-amd64.release.*.image_changelog.json" -O "${dirUbuntu2204}/jammy-server-cloudimg-amd64.image_changelog.json"
+# 拉取 Ubuntu 24.04 (Jammy) Minimal Cloud Image
+echo -e "${YELLOW} >>> 正在拉取 Ubuntu 24.04 Minimal Cloud Image 镜像文件...${NC}"
+wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.img" -O "${dirUbuntu2404MinMin}/ubuntu-24.04-minimal-cloudimg-amd64.img"
+wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.squashfs" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.squashfs"
+wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-root.tar.xz" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-root.tar.xz"
+wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-lxd.tar.xz" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-lxd.tar.xz"
+echo -e "${YELLOW} >>> 正在拉取 Ubuntu 24.04 Image 校验文件及其它元数据...${NC}"
+wget -c -q --show-progress "${urlUbuntu2404Min}/SHA256SUMS" -O "${dirUbuntu2404Min}/SHA256SUMS"
+wget -c -q --show-progress "${urlUbuntu2404Min}/SHA256SUMS.gpg" -O "${dirUbuntu2404Min}/SHA256SUMS.gpg"
+wget -c -q --show-progress "${urlUbuntu2404Min}/MD5SUMS" -O "${dirUbuntu2404Min}/MD5SUMS"
+wget -c -q --show-progress "${urlUbuntu2404Min}/MD5SUMS.gpg" -O "${dirUbuntu2404Min}/MD5SUMS.gpg"
+wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.manifest" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.manifest"
+wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-root.manifest" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64-root.manifest"
+wget -c -q --show-progress "${urlUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.squashfs.manifest" -O "${dirUbuntu2404Min}/ubuntu-24.04-minimal-cloudimg-amd64.squashfs.manifest"
+
+# 拉取 Ubuntu 26.04 (Jammy) Cloud Image
+echo -e "${YELLOW} >>> 正在拉取 Ubuntu 26.04 Cloud Image 镜像文件...${NC}"
+wget -c -q --show-progress "${urlUbuntu2604}/jammy-server-cloudimg-amd64.img" -O "${dirUbuntu2604}/jammy-server-cloudimg-amd64.img"
+wget -c -q --show-progress "${urlUbuntu2604}/jammy-server-cloudimg-amd64.ova" -O "${dirUbuntu2604}/jammy-server-cloudimg-amd64.ova"
+wget -c -q --show-progress "${urlUbuntu2604}/jammy-server-cloudimg-amd64.vmdk" -O "${dirUbuntu2604}/jammy-server-cloudimg-amd64.vmdk"
+wget -c -q --show-progress "${urlUbuntu2604}/jammy-server-cloudimg-amd64.tar.xz" -O "${dirUbuntu2604}/jammy-server-cloudimg-amd64.tar.xz"
+wget -c -q --show-progress "${urlUbuntu2604}/jammy-server-cloudimg-amd64-root.tar.xz" -O "${dirUbuntu2604}/jammy-server-cloudimg-amd64-root.tar.xz"
+wget -c -q --show-progress "${urlUbuntu2604}/jammy-server-cloudimg-amd64-lxd.tar.xz" -O "${dirUbuntu2604}/jammy-server-cloudimg-amd64-lxd.tar.xz"
+echo -e "${YELLOW} >>> 正在拉取 Ubuntu 26.04 Image 校验文件及其它元数据...${NC}"
+wget -c -q --show-progress "${urlUbuntu2604}/SHA256SUMS" -O "${dirUbuntu2604}/SHA256SUMS"
+wget -c -q --show-progress "${urlUbuntu2604}/SHA256SUMS.gpg" -O "${dirUbuntu2604}/SHA256SUMS.gpg"
+wget -c -q --show-progress "${urlUbuntu2604}/MD5SUMS" -O "${dirUbuntu2604}/MD5SUMS"
+wget -c -q --show-progress "${urlUbuntu2604}/MD5SUMS.gpg" -O "${dirUbuntu2604}/MD5SUMS.gpg"
+wget -c -q --show-progress "${urlUbuntu2604}/jammy-server-cloudimg-amd64.manifest" -O "${dirUbuntu2604}/jammy-server-cloudimg-amd64.manifest"
+wget -c -q --show-progress "${urlUbuntu2604}/jammy-server-cloudimg-root.manifest" -O "${dirUbuntu2604}/jammy-server-cloudimg-root.manifest"
+
+# 拉取 Ubuntu 26.04 (Jammy) Minimal Cloud Image
+echo -e "${YELLOW} >>> 正在拉取 Ubuntu 26.04 Minimal Cloud Image 镜像文件...${NC}"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.img" -O "${dirUbuntu2604MinMin}/ubuntu-26.04-minimal-cloudimg-amd64.img"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.squashfs" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.squashfs"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-root.tar.xz" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-root.tar.xz"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-lxd.tar.xz" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-lxd.tar.xz"
+echo -e "${YELLOW} >>> 正在拉取 Ubuntu 26.04 Image 校验文件及其它元数据...${NC}"
+wget -c -q --show-progress "${urlUbuntu2604Min}/SHA256SUMS" -O "${dirUbuntu2604Min}/SHA256SUMS"
+wget -c -q --show-progress "${urlUbuntu2604Min}/SHA256SUMS.gpg" -O "${dirUbuntu2604Min}/SHA256SUMS.gpg"
+wget -c -q --show-progress "${urlUbuntu2604Min}/MD5SUMS" -O "${dirUbuntu2604Min}/MD5SUMS"
+wget -c -q --show-progress "${urlUbuntu2604Min}/MD5SUMS.gpg" -O "${dirUbuntu2604Min}/MD5SUMS.gpg"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.manifest" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.manifest"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-root.manifest" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64-root.manifest"
+wget -c -q --show-progress "${urlUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.squashfs.manifest" -O "${dirUbuntu2604Min}/ubuntu-26.04-minimal-cloudimg-amd64.squashfs.manifest"
 
 # 拉取 Debian 13 (Trixie) Cloud Image
 echo -e "${YELLOW} >>> 正在拉取 Debian 13 Cloud Image 镜像文件...${NC}"
@@ -133,10 +184,10 @@ wget -c -q --show-progress "${urlDebian11}/debian-11-generic-amd64.json" -O "${d
 wget -c -q --show-progress "${urlDebian11}/debian-11-genericcloud-amd64.json" -O "${dirDebian11}/debian-11-genericcloud-amd64.json"
 
 # 拉取 Alpine Linux Cloud Image
-LatestAlpineCloud_BiosCloudinit=$(curl -sL "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-bios-cloudinit-r[0-9]+\.qcow2' | sort -V | tail -n 1)
-LatestAlpineCloud_UefiCloudinit=$(curl -sL "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-cloudinit-r[0-9]+\.qcow2' | sort -V | tail -n 1)
-LatestAlpineCloud_BiosTiny=$(curl -sL "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-tiny-r[0-9]+\.qcow2' | sort -V | tail -n 1)
-LatestAlpineCloud_UefiTiny=$(curl -sL "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-tiny-r[0-9]+\.qcow2' | sort -V | tail -n 1)
+LatestAlpineCloud_BiosCloudinit=$(curl -sL "${urlAlpineCloud}" | grep -oE 'generic_alpine-[0-9.]+-x86_64-bios-cloudinit-r[0-9]+\.qcow2' | sort -V | tail -n 1)
+LatestAlpineCloud_UefiCloudinit=$(curl -sL "${urlAlpineCloud}" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-cloudinit-r[0-9]+\.qcow2' | sort -V | tail -n 1)
+LatestAlpineCloud_BiosTiny=$(curl -sL "${urlAlpineCloud}" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-tiny-r[0-9]+\.qcow2' | sort -V | tail -n 1)
+LatestAlpineCloud_UefiTiny=$(curl -sL "${urlAlpineCloud}" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-tiny-r[0-9]+\.qcow2' | sort -V | tail -n 1)
 echo -e "${YELLOW} >>> 正在拉取 Alpine Cloud Image 镜像文件...${NC}"
 wget -c -q --show-progress "${urlAlpineCloud}/${LatestAlpineCloud_BiosCloudinit}" -O "${dirAlpineCloud}/generic_alpine-latest_stable-x86_64-bios-cloudinit.qcow2"
 wget -c -q --show-progress "${urlAlpineCloud}/${LatestAlpineCloud_UefiCloudinit}" -O "${dirAlpineCloud}/generic_alpine-latest_stable-x86_64-uefi-cloudinit.qcow2"
@@ -161,8 +212,8 @@ wget -c -q --show-progress "${urlAlpineCloud}/${LatestAlpineCloud_UefiTiny}.yaml
 wget -c -q --show-progress "${urlAlpineCloud}/${LatestAlpineCloud_UefiTiny}.qcow2.yaml.sha512" -O "${dirAlpineCloud}/generic_alpine-latest_stable-x86_64-uefi-tiny.qcow2.yaml.sha512"
 
 # 拉取 Alpine Linux Image
-LatestAlpine_Standard=$(curl -sL "$urlAlpine" | grep -oE 'alpine-standard-[0-9.]+-x86_64\.iso' | sort -V | tail -n 1)
-LatestAlpine_Virt=$(curl -sL "$urlAlpine" | grep -oE 'alpine-virt-[0-9.]+-x86_64\.iso' | sort -V | tail -n 1)
+LatestAlpine_Standard=$(curl -sL "${urlAlpine}" | grep -oE 'alpine-standard-[0-9.]+-x86_64\.iso' | sort -V | tail -n 1)
+LatestAlpine_Virt=$(curl -sL "${urlAlpine}" | grep -oE 'alpine-virt-[0-9.]+-x86_64\.iso' | sort -V | tail -n 1)
 echo -e "${YELLOW} >>> 正在拉取 Alpine Linux Image 镜像文件...${NC}"
 wget -c -q --show-progress "${urlAlpine}/${LatestAlpine_Standard}" -O "${dirAlpine}/alpine-standard-latest_stable-x86_64.iso"
 wget -c -q --show-progress "${urlAlpine}/${LatestAlpine_Virt}" -O "${dirAlpine}/alpine-virt-latest_stable-x86_64.iso"
