@@ -32,7 +32,7 @@ echo -e "${GREEN} >>> 开始在当前目录构建站点结构...${NC}"
 
 mkdir -p "$dirUbuntu2604"
 mkdir -p "$dirUbuntu2404"
-mkdir -p "$dirUbuntu2604"
+mkdir -p "$dirUbuntu2204"
 mkdir -p "$dirDebian13"
 mkdir -p "$dirDebian12"
 mkdir -p "$dirDebian11"
