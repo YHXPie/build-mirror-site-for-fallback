@@ -133,10 +133,10 @@ wget -c -q --show-progress "${urlDebian11}/debian-11-generic-amd64.json" -O "${d
 wget -c -q --show-progress "${urlDebian11}/debian-11-genericcloud-amd64.json" -O "${dirDebian11}/debian-11-genericcloud-amd64.json"
 
 # 拉取 Alpine Linux Cloud Image
-LatestAlpineCloud_BiosCloudinit=$(curl -s "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-bios-cloudinit-r[0-9]+\.qcow2' | sort -V | tail -n 1)
-LatestAlpineCloud_UefiCloudinit=$(curl -s "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-cloudinit-r[0-9]+\.qcow2' | sort -V | tail -n 1)
-LatestAlpineCloud_BiosTiny=$(curl -s "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-tiny-r[0-9]+\.qcow2' | sort -V | tail -n 1)
-LatestAlpineCloud_UefiTiny=$(curl -s "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-tiny-r[0-9]+\.qcow2' | sort -V | tail -n 1)
+LatestAlpineCloud_BiosCloudinit=$(curl -sL "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-bios-cloudinit-r[0-9]+\.qcow2' | sort -V | tail -n 1)
+LatestAlpineCloud_UefiCloudinit=$(curl -sL "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-cloudinit-r[0-9]+\.qcow2' | sort -V | tail -n 1)
+LatestAlpineCloud_BiosTiny=$(curl -sL "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-tiny-r[0-9]+\.qcow2' | sort -V | tail -n 1)
+LatestAlpineCloud_UefiTiny=$(curl -sL "${urlAlpine}Cloud" | grep -oE 'generic_alpine-[0-9.]+-x86_64-uefi-tiny-r[0-9]+\.qcow2' | sort -V | tail -n 1)
 echo -e "${YELLOW} >>> 正在拉取 Alpine Cloud Image 镜像文件...${NC}"
 wget -c -q --show-progress "${urlAlpineCloud}/${LatestAlpineCloud_BiosCloudinit}" -O "${dirAlpineCloud}/generic_alpine-latest_stable-x86_64-bios-cloudinit.qcow2"
 wget -c -q --show-progress "${urlAlpineCloud}/${LatestAlpineCloud_UefiCloudinit}" -O "${dirAlpineCloud}/generic_alpine-latest_stable-x86_64-uefi-cloudinit.qcow2"
@@ -161,12 +161,12 @@ wget -c -q --show-progress "${urlAlpineCloud}/${LatestAlpineCloud_UefiTiny}.yaml
 wget -c -q --show-progress "${urlAlpineCloud}/${LatestAlpineCloud_UefiTiny}.qcow2.yaml.sha512" -O "${dirAlpineCloud}/generic_alpine-latest_stable-x86_64-uefi-tiny.qcow2.yaml.sha512"
 
 # 拉取 Alpine Linux Image
-LatestAlpine_Standard=$(curl -s "$urlAlpine" | grep -oE 'alpine-standard-[0-9.]+\.iso' | sort -V | tail -n 1)
-LatestAlpine_Virt=$(curl -s "$urlAlpine" | grep -oE 'alpine-virt-[0-9.]+\.iso' | sort -V | tail -n 1)
-echo -e "${YELLOW} >>> 正在拉取 Alpine Cloud Image 镜像文件...${NC}"
+LatestAlpine_Standard=$(curl -sL "$urlAlpine" | grep -oE 'alpine-standard-[0-9.]+-x86_64\.iso' | sort -V | tail -n 1)
+LatestAlpine_Virt=$(curl -sL "$urlAlpine" | grep -oE 'alpine-virt-[0-9.]+-x86_64\.iso' | sort -V | tail -n 1)
+echo -e "${YELLOW} >>> 正在拉取 Alpine Linux Image 镜像文件...${NC}"
 wget -c -q --show-progress "${urlAlpine}/${LatestAlpine_Standard}" -O "${dirAlpine}/alpine-standard-latest_stable-x86_64.iso"
 wget -c -q --show-progress "${urlAlpine}/${LatestAlpine_Virt}" -O "${dirAlpine}/alpine-virt-latest_stable-x86_64.iso"
-echo -e "${YELLOW} >>> 正在拉取 Alpine Cloud Image 校验文件及其它元数据...${NC}"
+echo -e "${YELLOW} >>> 正在拉取 Alpine Linux Image 校验文件及其它元数据...${NC}"
 wget -c -q --show-progress "${urlAlpine}/{$LatestAlpine_Standard}.asc" -O "${dirAlpine}/alpine-standard-latest_stable-x86_64.iso.asc"
 wget -c -q --show-progress "${urlAlpine}/{$LatestAlpine_Standard}.sha256" -O "${dirAlpine}/alpine-standard-latest_stable-x86_64.iso.sha256"
 wget -c -q --show-progress "${urlAlpine}/{$LatestAlpine_Standard}.sha512" -O "${dirAlpine}/alpine-standard-latest_stable-x86_64.iso.sha512"
